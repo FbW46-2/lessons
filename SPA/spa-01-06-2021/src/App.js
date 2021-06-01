@@ -1,37 +1,16 @@
 import "./App.css";
-
-const navbarData = {
-  logo: "Logo",
-  navbarItems: ["Home", "About", "Contact", "Posts"],
-};
-
-function Navbar() {
-  return (
-    <nav className="Navbar">
-      <div className="Logo">{navbarData.logo}</div>
-      <ul className="NavbarItems">
-        {navbarData.navbarItems.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    </nav>
-  );
-}
-
+import api from "./api";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 function App() {
-  const mainPageData = {
-    title: "Home Page",
-    body: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio ducimus
-    sit dolorum laboriosam dolore error neque eius expedita culpa dolores.`,
-  };
   return (
     <>
-      <Navbar />
+      <Navbar data={api} />
       <main>
-        <h1>{mainPageData.title}</h1>
-        <p>{mainPageData.body}</p>
+        <h1>{api.mainPageData.title}</h1>
+        <p>{api.mainPageData.body}</p>
       </main>
-      <footer>Footer</footer>
+      <Footer />
     </>
   );
 }
