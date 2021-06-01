@@ -1,0 +1,15 @@
+.Navbar {
+  background: #ccc;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.NavbarItems {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+}
+
+.NavbarItems > li {
+  padding-left: 20px;
+}
