@@ -4,14 +4,7 @@ import Form from "./components/Form/Form";
 import Layout from "./components/Layout/Layout";
 import Post from "./components/Post/Post";
 
-const initState = [
-  {
-    title: "First post",
-    body: "First post body",
-    image:
-      "https://easybase.io/assets/images/posts_images/5-great-react-libraries-1.png",
-  },
-];
+const initState = [];
 
 function App() {
   //const [posts, setPosts] = useState(initState);
