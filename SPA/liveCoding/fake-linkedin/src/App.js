@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import Form from "./components/Form/Form";
 import Layout from "./components/Layout/Layout";
+import Post from "./components/Post/Post";
 
 const initState = [
   {
@@ -13,12 +14,12 @@ const initState = [
 ];
 
 function App() {
-  const [posts, setPosts] = useState(initState);
-  /*
-  const tuple = useState(initState);
-  const posts = tuple[0];
-  const setPosts = tuple[1];
-*/
+  //const [posts, setPosts] = useState(initState);
+  //console.log("useState('alex') ==> ", useState("Alex"));
+  const store = useState(initState);
+  const posts = store[0];
+  const setPosts = store[1];
+
   const submitForm = (e) => {
     e.preventDefault();
     let title = e.target.title.value;
@@ -32,13 +33,15 @@ function App() {
     };
     const clonePostsAndUpdate = [postPayload, ...posts];
     setPosts(clonePostsAndUpdate);
-    console.log(" postPayload ==> ", postPayload);
+    console.log(" clonePostsAndUpdate ==> ", clonePostsAndUpdate);
   };
 
   return (
     <Layout>
       <Form onSubmitHandler={submitForm} />
-      <div>Posts</div>
+      {posts.map((item, i) => (
+        <Post postData={item} key={i} />
+      ))}
     </Layout>
   );
 }
