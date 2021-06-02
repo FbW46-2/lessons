@@ -1,0 +1,14 @@
+.Navbar,
+.Footer {
+  height: 80px;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.Footer {
+  background-color: #000;
+  color: white;
+}
