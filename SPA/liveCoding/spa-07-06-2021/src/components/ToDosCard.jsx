@@ -1,8 +1,10 @@
-function ToDosCard({ toDo }) {
+function ToDosCard({ toDo, onDeleteHandler, itemIndex }) {
   return (
     <div className="Card">
       <div className="Item">{toDo}</div>
-      <span className="Delete">X</span>
+      <span onClick={() => onDeleteHandler(itemIndex)} className="Delete">
+        X
+      </span>
     </div>
   );
 }
