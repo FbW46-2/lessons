@@ -1,0 +1,29 @@
+.Container {
+  width: 60%;
+  margin: auto;
+}
+
+.Card {
+  border: 1px solid #ccc;
+  display: flex;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.Delete {
+  width: 10%;
+}
+
+.Item {
+  width: 90%;
+}
+
+.Delete:hover {
+  color: red;
+}
+
+.ToDosForm {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid blue;
+}
