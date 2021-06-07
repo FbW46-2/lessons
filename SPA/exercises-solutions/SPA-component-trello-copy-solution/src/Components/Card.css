@@ -1,0 +1,107 @@
+:root {
+	--background-color: #ebecf0;
+	--add-card-color: #5e6c84;
+	--border-color: #00adcc;
+	--card-title-color: #4c4c4c;
+	--base-left-right-margin: 0.5rem;
+}
+
+.all-cards {
+	display: flex;
+	flex-direction: row;
+}
+
+.single-card {
+	background-color: var(--background-color);
+	border-radius: 3px;
+	border: 3px solid var(--border-color);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	margin: 0 4px;
+	max-height: 100vh;
+	position: relative;
+	vertical-align: top;
+	white-space: normal;
+	width: 272px;
+}
+
+.h1-card-title {
+	align-items: center;
+	color: var(--card-title-color);
+	display: flex;
+	justify-content: space-between;
+	padding: 6px 8px;
+	width: 100%;
+}
+
+.card-title {
+	background: transparent;
+	border-radius: 3px;
+	border: none;
+	box-shadow: none;
+	font-size: 14px;
+	font-weight: 600;
+	height: 28px;
+	line-height: 20px;
+	max-height: 256px;
+	min-height: 20px;
+	overflow-wrap: break-word;
+	overflow: hidden;
+	padding: 4px 8px;
+	resize: none;
+	width: 100%;
+}
+
+/* options button */
+.options-button {
+	color: #6b778c;
+	padding: 6px;
+}
+
+.cards {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	margin: 0 4px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 0 4px;
+}
+
+.card {
+	background-color: #fff;
+	border-radius: 3px;
+	box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
+	color: #172b4d;
+	cursor: pointer;
+	display: block;
+	margin-bottom: 8px;
+	max-width: 300px;
+	padding: var(--base-left-right-margin);
+	text-decoration: none;
+	white-space: normal;
+	word-wrap: break-word;
+}
+
+.add-card {
+	border-radius: 0 0 3px 3px;
+	color: var(--add-card-color);
+	display: block;
+	flex: 0 0 auto;
+	font-size: 0.9rem;
+	padding: 6px;
+	position: relative;
+	text-decoration: none;
+	user-select: none;
+	white-space: normal;
+}
+
+.icon-add {
+	color: #6b778c;
+	font-size: 16px;
+	height: 20px;
+	line-height: 20px;
+	margin-right: 2px;
+	width: 20px;
+}
