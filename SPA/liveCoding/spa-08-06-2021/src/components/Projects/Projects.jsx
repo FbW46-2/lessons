@@ -1,34 +1,7 @@
 import "./Projects.scss";
 import React from "react";
 import Card from "../components/Card/Card";
-import cardImg from "../../images/card.png";
-
-const projects = [
-  {
-    title: "Project 1",
-    img: cardImg,
-  },
-  {
-    title: "Project 2",
-    img: cardImg,
-  },
-  {
-    title: "Project 3",
-    img: cardImg,
-  },
-  {
-    title: "Project 4",
-    img: cardImg,
-  },
-  {
-    title: "Project 5",
-    img: cardImg,
-  },
-  {
-    title: "Project 6",
-    img: cardImg,
-  },
-];
+import projects from "./data";
 
 export default function Projects() {
   return (
@@ -37,7 +10,7 @@ export default function Projects() {
         <h2>Projects</h2>
         <div className="ProjectsItems">
           {projects.map((pro, i) => (
-            <Card key={i} projectData={pro} />
+            <Card key={i} data={pro} />
           ))}
         </div>
       </div>

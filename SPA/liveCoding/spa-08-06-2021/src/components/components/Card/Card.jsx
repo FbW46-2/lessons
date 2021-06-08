@@ -1,11 +1,10 @@
 import "./Card.scss";
-import cardImg from "../../../images/card.png";
 
-function Card() {
+function Card({ data }) {
   return (
     <div className="Card">
-      <img src={cardImg} alt="card image" />
-      <p>Card</p>
+      <img src={data.img} alt="card image" />
+      <p>{data.title}</p>
     </div>
   );
 }
