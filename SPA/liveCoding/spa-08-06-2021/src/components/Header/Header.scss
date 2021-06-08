@@ -1,0 +1,35 @@
+$base-bg-color: #ccc;
+
+.Header {
+  width: 100vw;
+}
+
+.Navbar,
+.NavbarItems,
+.Logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Logo {
+  font-weight: 900;
+}
+
+.Navbar {
+  background: $base-bg-color;
+  width: 100%;
+  height: 80px;
+}
+
+.NavbarItems {
+  list-style: none;
+}
+
+.NavbarItems > li {
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.NavbarItems > li:hover {
+  color: rgb(230, 227, 227);
+}
