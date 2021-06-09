@@ -1,0 +1,14 @@
+.UsersApi {
+  padding: 10px;
+  text-align: center;
+  background: rgba(168, 167, 167, 0.199);
+  .UsersApiItems {
+    display: flex;
+    flex-wrap: wrap;
+    .UserApiCard {
+      width: 32%;
+      margin-left: 5px;
+      border: 1px solid blue;
+    }
+  }
+}

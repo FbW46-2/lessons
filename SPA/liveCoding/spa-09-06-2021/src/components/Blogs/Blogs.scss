@@ -1,0 +1,13 @@
+.Blogs {
+  padding: 10px;
+  text-align: center;
+  background: rgba(168, 167, 167, 0.199);
+  .BlogsItems {
+    display: flex;
+    flex-wrap: wrap;
+    div {
+      width: 32%;
+      margin-left: 5px;
+    }
+  }
+}
