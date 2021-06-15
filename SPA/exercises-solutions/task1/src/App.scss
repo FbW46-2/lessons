@@ -1,0 +1,122 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+// all links white
+a {
+  color: white;
+  text-decoration: none;
+}
+
+// links inside paragraphs black
+p a {
+  color: black;
+}
+
+// header section
+.header {
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: url('background.jpg') center center;
+  color: white;
+
+  .logo {
+    padding: 10px;
+    font-size: 26px;
+  }
+  
+  .navbar {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+// the main-container
+.main {
+  padding: 10px;
+}
+
+// the "Me" section
+.me {
+  display: flex; 
+  width: 600px;
+  margin: 0 auto;
+
+  .me-photo {
+    width: 180px;
+  }
+  
+  .me-description {
+    padding: 0 10px;
+  }
+}
+
+// the "Me" section - responsive
+@media only screen and (max-width: 480px) {
+  .me {
+    display: block;
+    width: 100%;
+
+    .me-photo {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
+
+// the "Hobby" section
+.hobbies {
+  width: 840px;
+  margin: 0 auto;
+
+  .hobby-images img {
+    width: 200px;
+    margin: 2px;
+  }
+}
+
+
+// the "Hobby" section - responsive
+@media only screen and (max-width: 480px) {
+  .hobbies {
+    width: 100%;
+
+    .hobby-images img {
+      display: block;
+      margin: 10px auto;
+    }
+  }
+}
+
+.contact {
+  width: 600px;
+  padding: 4px;
+  margin: 0 auto;
+  box-shadow: 4px 3px 8px 0px rgba(0,0,0,0.75);
+
+  input, textarea, button {
+    display: block;
+    font-size: 20px;
+    margin: 10px auto;
+    text-align: center;
+  }
+}
+
+// the "Contact" section - responsive
+@media only screen and (max-width: 480px) {
+  .contact {
+    width: 100%;
+    box-shadow: none;
+  }
+}
+
+// Not found - section
+.not-found {
+  h1 {
+    width: 250px;
+    margin: 20px auto;
+  }
+}
