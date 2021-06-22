@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 class App extends React.Component {
 
-
     increment = () => {
         this.props.dispatch({ type: 'INCREMENT' });
     }
@@ -34,5 +33,6 @@ function mapStateToProps(state) {
         count: state.count
     }
 }
+
 
 export default connect(mapStateToProps)(App);
