@@ -18,7 +18,7 @@ db.defaults({ posts: [], user: {} }).write();
 
 app.get('/posts', (req, res) => {
     const data = db.get('posts').value();
-    return res.json(data);
+    res.json(data);
 });
 
 app.post('/posts/new', (req, res) => {
