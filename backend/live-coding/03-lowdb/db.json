@@ -1,0 +1,15 @@
+{
+  "posts": [
+    {
+      "title": "greeting",
+      "text": "Hi there",
+      "id": "P7rtnT9ktHCZGYM8SVQMc"
+    },
+    {
+      "title": "greeting",
+      "text": "Hi there",
+      "id": "0aeqiefqWycNAKCWpClEG"
+    }
+  ],
+  "user": {}
+}
