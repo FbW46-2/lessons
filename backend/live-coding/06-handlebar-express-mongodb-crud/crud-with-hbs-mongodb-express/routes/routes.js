@@ -61,7 +61,6 @@ router.post("/insert", function (req, res) {
 });
 
 //Assignment
-
 router.post("/update", function (req, res) {
   const id = req.body.id;
 
@@ -70,27 +69,62 @@ router.post("/update", function (req, res) {
     {
       useUnifiedTopology: true,
     },
-    async function (err, client) {
+    function (err, client) {
       if (err) throw err.message;
 
       const db = client.db(dbName);
       const collection = db.collection("users2");
 
-      const info = await collection.find({ _id: ObjectId(id) }).toArray();
-
-      const item = {
-        title: req.body.title || info[0].title,
-        content: req.body.content || info[0].content,
-        author: req.body.author || info[0].author,
-      };
-
-      collection.updateOne({ _id: ObjectId(id) }, { $set: item }, function () {
-        console.log("Item updated");
-        res.redirect("/");
-      });
+      // const info = collection.find({ _id: ObjectId(id) }).toArray();
+      for (key in req.body) {
+        if (Object.values(req.body)) {
+          //if key has a value, update only that value
+          collection.updateOne(
+            { _id: ObjectId(req.body.id) },
+            {
+              $set: {
+                title: req.body[key],
+                content: req.body[key],
+                author: req.body[key],
+              },
+            }
+          );
+        }
+      }
+      res.redirect("/");
     }
   );
 });
+
+// router.post("/update", function (req, res) {
+//   const id = req.body.id;
+
+//   MongoClient.connect(
+//     url,
+//     {
+//       useUnifiedTopology: true,
+//     },
+//     async function (err, client) {
+//       if (err) throw err.message;
+
+//       const db = client.db(dbName);
+//       const collection = db.collection("users2");
+
+//       const info = await collection.find({ _id: ObjectId(id) }).toArray();
+
+//       const item = {
+//         title: req.body.title || info[0].title,
+//         content: req.body.content || info[0].content,
+//         author: req.body.author || info[0].author,
+//       };
+
+//       collection.updateOne({ _id: ObjectId(id) }, { $set: item }, function () {
+//         console.log("Item updated");
+//         res.redirect("/");
+//       });
+//     }
+//   );
+// });
 
 router.post("/delete", function (req, res) {
   const id = req.body.id;
