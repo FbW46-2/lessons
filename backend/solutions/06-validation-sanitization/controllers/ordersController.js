@@ -3,7 +3,10 @@ const createError = require("http-errors");
 
 exports.getOrders = async (req, res, next) => {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find().populate(
+      "record",
+      "-__v -price -year -_id"
+    );
     res.status(200).send(orders);
   } catch (e) {
     next(e);
@@ -33,7 +36,7 @@ exports.deleteOrder = async (req, res, next) => {
 exports.updateOrder = async (req, res, next) => {
   try {
     const order = await Order.findByIdAndUpdate(req.params.id, req.body, {
-      new: true
+      new: true,
     });
     if (!order) throw new createError.NotFound();
     res.status(200).send(order);
