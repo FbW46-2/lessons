@@ -27,6 +27,8 @@ router.post(
       //Check if user already exists
       let user = await User.findOne({ email });
 
+      //console.log("User email: ", email);
+
       if (user) {
         res.status(400).json({ msg: "User Already Exists" });
       }
@@ -38,11 +40,13 @@ router.post(
         password, //"password": "1234"
       });
 
+      //console.log("User: ", user);
       //hash the password for the new user in order to save to DB
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
+      //console.log(user.password);
 
-      await User.save();
+      await user.save();
 
       //Create a payload with user ID in order to create JWT
       const payload = {
@@ -51,10 +55,21 @@ router.post(
         },
       };
 
-      jwt.sign(payload, "randomString", { expiresIn: "1h" }, (err, token) => {
-        if (err) throw err;
-        res.status(200).json({ token });
-      });
+      console.log(payload);
+
+      jwt.sign(
+        payload,
+        "randomString",
+        {
+          expiresIn: "1h",
+        },
+        (err, token) => {
+          if (err) throw err;
+          res.status(200).json({
+            token,
+          });
+        }
+      );
     } catch (error) {
       res.status(500).send("Error in Saving!");
     }
