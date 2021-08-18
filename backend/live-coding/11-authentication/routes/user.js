@@ -25,17 +25,17 @@ router.post(
 
     try {
       //Check if user already exists
-      let user = await User.findOne({ email });
+      let existingUser = await User.findOne({ email });
 
       //console.log("User email: ", email);
 
-      if (user) {
-        res.status(400).json({ msg: "User Already Exists" });
+      if (existingUser) {
+        return res.status(400).json({ msg: "User Already Exists" });
       }
 
       //Create a new user
-      user = new User({
-        username,
+      const newUser = new User({
+        username, //
         email,
         password, //"password": "1234"
       });
@@ -43,15 +43,16 @@ router.post(
       //console.log("User: ", user);
       //hash the password for the new user in order to save to DB
       const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
+      newUser.password = await bcrypt.hash(password, salt);
       //console.log(user.password);
 
-      await user.save();
+      await newUser.save();
 
       //Create a payload with user ID in order to create JWT
       const payload = {
-        user: {
-          id: user.id,
+        newUser: {
+          id: newUser.id,
+          username: newUser.username,
         },
       };
 
@@ -72,6 +73,83 @@ router.post(
       );
     } catch (error) {
       res.status(500).send("Error in Saving!");
+    }
+  }
+);
+
+//User login
+router.post(
+  "/login",
+  [
+    check("email", "Please enter a valid email").isEmail(),
+    check("password", "Please enter a valid password").isLength({ min: 4 }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+    }
+
+    const { email, password } = req.body;
+
+    try {
+      //Check if user already exists
+      let existingUser = await User.findOne({ email });
+
+      //console.log("User email: ", email);
+
+      if (!existingUser) {
+        return res.status(400).json({ msg: "User Not Exist" });
+      }
+
+      const isMatch = await bcrypt.compare(password, existingUser.password);
+
+      if (!isMatch) {
+        return res.status(400).json({
+          message: "Incorrect Password!",
+        });
+      }
+
+      //Create a new user
+      // const newUser = new User({
+      //   username, //
+      //   email,
+      //   password, //"password": "1234"
+      // });
+
+      //console.log("User: ", user);
+      //hash the password for the new user in order to save to DB
+      // const salt = await bcrypt.genSalt(10);
+      // newUser.password = await bcrypt.hash(password, salt);
+      //console.log(user.password);
+
+      // await newUser.save();
+
+      //Create a payload with user ID in order to create JWT
+      const payload = {
+        existingUser: {
+          id: existingUser.id,
+          name: existingUser.username,
+        },
+      };
+
+      console.log(payload);
+
+      jwt.sign(
+        payload,
+        "randomString",
+        {
+          expiresIn: "1h",
+        },
+        (err, token) => {
+          if (err) throw err;
+          res.status(200).json({
+            token,
+          });
+        }
+      );
+    } catch (error) {
+      res.status(500).send("Server Error!");
     }
   }
 );
