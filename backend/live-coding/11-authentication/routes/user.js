@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 const User = require("../model/User");
+const auth = require("../middleware/auth");
 
 //localhost:3000/user/signup
 router.post(
@@ -129,7 +130,6 @@ router.post(
       const payload = {
         existingUser: {
           id: existingUser.id,
-          name: existingUser.username,
         },
       };
 
@@ -153,5 +153,14 @@ router.post(
     }
   }
 );
+
+router.get("/me", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    res.json(user);
+  } catch (e) {
+    res.send({ message: "Error in Fetching user" });
+  }
+});
 
 module.exports = router;
