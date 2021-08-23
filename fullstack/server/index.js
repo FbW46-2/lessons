@@ -14,7 +14,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 const CONNECTION_URL =
-  "mongodb+srv://dilshodDCI:dilshodDCI123@cluster0.ldws3.mongodb.net/imageboard46-2?retryWrites=true&w=majority";
+  "mongodb+srv://dilshodDCI:dilshodDCI123@cluster0.ldws3.mongodb.net/myimageboard46-2?retryWrites=true&w=majority";
 
 const PORT = process.env.PORT || 5000;
 
