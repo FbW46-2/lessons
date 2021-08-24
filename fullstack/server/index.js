@@ -5,13 +5,13 @@ import postRoutes from "./routes/postsRoutes.js";
 
 const app = express();
 
-//http://localhost:5000/posts
-app.use("/posts", postRoutes);
-
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 
 app.use(cors());
+
+//http://localhost:5000/posts
+app.use("/posts", postRoutes);
 
 const CONNECTION_URL =
   "mongodb+srv://dilshodDCI:dilshodDCI123@cluster0.ldws3.mongodb.net/myimageboard46-2?retryWrites=true&w=majority";
