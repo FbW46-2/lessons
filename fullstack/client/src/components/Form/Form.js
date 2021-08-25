@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useStyles from "./stylesForm";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/postsActions";
 
 const Form = ({ currentId, setCurrentId }) => {
@@ -14,6 +14,16 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: "",
     selectedFile: "",
   });
+
+  const post = useSelector((state) =>
+    currentId ? state.postReducer.find((p) => p._id === currentId) : null
+  );
+
+  useEffect(() => {
+    if (post) {
+      setPostData(post);
+    }
+  }, [post]);
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -27,9 +37,19 @@ const Form = ({ currentId, setCurrentId }) => {
       //create a post
       dispatch(createPost(postData));
     }
+    clear();
   };
 
-  const clear = () => {};
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -39,7 +59,9 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.form} ${classes.root}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Create Image Card</Typography>
+        <Typography variant="h6">
+          {currentId ? `Editing` : `Creating `} Image Card
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
