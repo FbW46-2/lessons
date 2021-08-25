@@ -3,6 +3,7 @@ import Post from "./Post/Post";
 import { useSelector } from "react-redux";
 
 import useStyles from "./stylesAllPosts";
+import { Grid, CircularProgress } from "@material-ui/core";
 
 const AllPosts = () => {
   const classes = useStyles(); //classes.container
@@ -10,12 +11,21 @@ const AllPosts = () => {
   const posts = useSelector((state) => state.postReducer);
   console.log("All posts: ", posts);
 
-  return (
-    <div>
-      <h1>AllPosts</h1>
-      <Post />
-      <Post />
-    </div>
+  return !posts.length ? (
+    <CircularProgress />
+  ) : (
+    <Grid
+      className={classes.container}
+      container
+      alignItems="stretch"
+      spacing={3}
+    >
+      {posts.map((post) => (
+        <Grid key={post._id} item xs={12} sm={6} md={6}>
+          <Post post={post} />
+        </Grid>
+      ))}
+    </Grid>
   );
 };
 
