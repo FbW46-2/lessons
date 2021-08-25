@@ -4,9 +4,9 @@ import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
 
 import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/postsActions";
+import { createPost, updatePost } from "../../actions/postsActions";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -20,7 +20,13 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost(postData));
+    if (currentId) {
+      //update post
+      dispatch(updatePost(currentId, postData));
+    } else {
+      //create a post
+      dispatch(createPost(postData));
+    }
   };
 
   const clear = () => {};
