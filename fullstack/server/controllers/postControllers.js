@@ -13,7 +13,10 @@ export const getPosts = async (req, res) => {
 export const createPost = async (req, res) => {
   try {
     const post = req.body;
-    const newPost = new PostMessage(post);
+    const newPost = new PostMessage({
+      ...post,
+      createdAt: new Date().toISOString(),
+    });
     await newPost.save();
     res.status(201).json(newPost);
   } catch (error) {
@@ -69,7 +72,6 @@ export const likePost = async (req, res) => {
     }
 
     const post = await PostMessage.findById(_id);
-
     const likedPost = await PostMessage.findByIdAndUpdate(
       _id,
       { likeCount: post.likeCount + 1 },
