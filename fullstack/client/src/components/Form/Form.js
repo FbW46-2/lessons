@@ -19,6 +19,8 @@ const Form = ({ currentId, setCurrentId }) => {
     currentId ? state.postReducer.find((p) => p._id === currentId) : null
   );
 
+  console.log("Selected post: ", post);
+
   useEffect(() => {
     if (post) {
       setPostData(post);
@@ -118,7 +120,7 @@ const Form = ({ currentId, setCurrentId }) => {
           type="submit"
           fullWidth
         >
-          Submit
+          {currentId ? `Update` : `Submit`}
         </Button>
 
         <Button
