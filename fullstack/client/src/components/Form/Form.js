@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/postsActions";
 
 const Form = ({ currentId, setCurrentId }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -16,10 +17,10 @@ const Form = ({ currentId, setCurrentId }) => {
   });
 
   const post = useSelector((state) =>
-    currentId ? state.postReducer.find((p) => p._id === currentId) : null
+    currentId ? state.posts.find((p) => p._id === currentId) : null
   );
 
-  console.log("Selected post: ", post);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (post) {
@@ -28,16 +29,15 @@ const Form = ({ currentId, setCurrentId }) => {
   }, [post]);
 
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentId) {
-      //update post
-      dispatch(updatePost(currentId, postData));
+      dispatch(
+        updatePost(currentId, { ...postData, name: user?.result?.name })
+      );
     } else {
-      //create a post
-      dispatch(createPost(postData));
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
     }
     clear();
   };
@@ -45,13 +45,23 @@ const Form = ({ currentId, setCurrentId }) => {
   const clear = () => {
     setCurrentId(null);
     setPostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
       selectedFile: "",
     });
   };
+
+  if (!user?.result?.name) {
+    //Please sign in
+    return (
+      <Paper className={classes.paper}>
+        <Typography variant="h6" align="center">
+          Please Sign In to create your own cards and like other's cards
+        </Typography>
+      </Paper>
+    );
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -61,10 +71,11 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.form} ${classes.root}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">
-          {currentId ? `Editing` : `Creating `} Image Card
+        <Typography variant="h5">
+          {" "}
+          {currentId ? `Editing` : `Creating`} Image Card
         </Typography>
-        <TextField
+        {/* <TextField
           name="creator"
           variant="outlined"
           label="Creator"
@@ -73,8 +84,7 @@ const Form = ({ currentId, setCurrentId }) => {
           onChange={(e) =>
             setPostData({ ...postData, creator: e.target.value })
           }
-        />
-
+        /> */}
         <TextField
           name="title"
           variant="outlined"
@@ -103,7 +113,6 @@ const Form = ({ currentId, setCurrentId }) => {
             setPostData({ ...postData, tags: e.target.value.split(",") })
           }
         />
-
         <div className={classes.fileInput}>
           <FileBase
             type="file"
@@ -122,7 +131,7 @@ const Form = ({ currentId, setCurrentId }) => {
           type="submit"
           fullWidth
         >
-          {currentId ? `Update` : `Submit`}
+          Submit
         </Button>
 
         <Button
